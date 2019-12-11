@@ -26,7 +26,7 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <Foundation/Foundation.h>
 
-#define AES_KEY @"eros loves you"
+#define AES_KEY @"gsst loves you"
 #define AES_IV @"RjatRGC4W72PJXTE"
 
 @interface CryptLib : NSObject
