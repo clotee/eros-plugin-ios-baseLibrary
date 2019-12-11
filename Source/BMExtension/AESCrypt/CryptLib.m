@@ -128,7 +128,12 @@
 }
 
 - (NSString *) decryptCipherTextWith:(NSString *)ciperText key:(NSString *)key iv:(NSString *)iv {
-    return [[NSString alloc] initWithData:[[CryptLib alloc] decrypt:[[NSData alloc] initWithBase64EncodedString:ciperText options:NSDataBase64DecodingIgnoreUnknownCharacters] key:[[CryptLib alloc] sha256:key length:32] iv:iv] encoding:NSUTF8StringEncoding];
+    NSData * decryptData = [[NSData alloc] initWithBase64EncodedString:ciperText options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString * _key = [[CryptLib alloc] sha256:key length:32];
+    NSData * initData = [[CryptLib alloc] decrypt:decryptData key:_key iv:iv];
+    NSString * _data = [[NSString alloc] initWithData:initData encoding:NSUTF8StringEncoding];
+    NSLog(@"decryptCipherTextWith%@", _data);
+    return _data;
 }
 
 
@@ -178,7 +183,7 @@
     uint8_t digest[CC_SHA256_DIGEST_LENGTH]={0};
     CC_SHA256(keyData.bytes, (CC_LONG)keyData.length, digest);
     NSData *out=[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
-    NSString *hash=[out description];
+    NSString *hash=[out debugDescription];
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];

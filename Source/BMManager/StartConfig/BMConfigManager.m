@@ -66,7 +66,7 @@
 {
     if (self = [super init]) {
         
-        NSString *jStr = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"eros.native" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];
+        NSString *jStr = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"config.native" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];
         NSString *decryptStr = [[[CryptLib alloc] init] decryptCipherTextWith:jStr key:AES_KEY iv:AES_IV];
         NSData *jData = [decryptStr dataUsingEncoding:NSUTF8StringEncoding];
         
